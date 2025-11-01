@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ahmed Zia – Web Developer portfolio showcasing projects, skills, and contact info.">
+  <title>Portfolio | Ahmed Zia</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #fff;
+      --accent-color: #00ff88;
+      --card-color: #1c1c1c;
+    }
+
+    body.light-mode {
+      --bg-color: #f4f4f4;
+      --text-color: #121212;
+      --accent-color: #007f5f;
+      --card-color: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background-color: #0e0e0e;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+    }
+
+    .logo {
+      color: var(--accent-color);
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: var(--accent-color);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links li a:hover::after,
+    .nav-links li a.active::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--accent-color);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #111;
+        flex-direction: column;
+        width: 220px;
+        padding: 20px;
+        display: none;
+        border-radius: 0 0 0 10px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding-top: 120px;
+      padding-bottom: 40px;
+    }
+
+    .profile-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent-color);
+      box-shadow: 0 0 20px rgba(0, 255, 127, 0.6);
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: var(--accent-color);
+      margin-top: 20px;
+    }
+
+    .typed-text {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+    }
+
+    .description {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .connect-btn {
+      background-color: var(--accent-color);
+      color: var(--bg-color);
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .connect-btn:hover {
+      background-color: #00cc66;
+    }
+
+    /* Sections */
+    .section {
+      padding: 100px 20px 50px;
+      text-align: center;
+    }
+
+    .skill-card, .project-card {
+      background-color: var(--card-color);
+      margin: 1rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      display: inline-block;
+      width: 250px;
+      text-align: center;
+      font-size: 1.2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .reveal {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .skill-card:hover, .project-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 255, 127, 0.8);
+    }
+
+    .project-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Contact form */
+    form {
+      max-width: 400px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      background: var(--card-color);
+      color: var(--text-color);
+    }
+
+    input[type="submit"] {
+      background: var(--accent-color);
+      color: var(--bg-color);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    input[type="submit"]:hover {
+      background: #00cc66;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      background-color: var(--bg-color);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">AZ Portfolio</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="theme-toggle" id="themeToggle">🌙</div>
+    <div class="hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <header id="home">
+    <img src="profile.jpg" alt="Photo of Ahmed Zia" class="profile-img" />
+    <h1>Ahmed Zia</h1>
+    <p class="typed-text"></p>
+    <p class="description">I’m a passionate web developer (Roll No: 23014119-100), eager to build creative and efficient digital experiences using modern technologies.</p>
+    <button class="connect-btn">Contact Me</button>
+  </header>
+
+  <section class="section" id="skills">
+    <h2>My Skills</h2>
+    <div class="skills">
+      <div class="skill-card">HTML5 & CSS3</div>
+      <div class="skill-card">JavaScript (ES6+)</div>
+      <div class="skill-card">Responsive Design</div>
+      <div class="skill-card">Bootstrap / Tailwind</div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <h2>Projects</h2>
+    <div class="project-cards">
+      <div class="project-card">Personal Portfolio</div>
+      <div class="project-card">To-Do App</div>
+      <div class="project-card">Weather Dashboard</div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <input type="submit" value="Send Message" />
+    </form>
+  </section>
+
+  <footer>
+    © 2025 | Portfolio by Ahmed Zia (Roll No: 23014119-100)
+  </footer>
+
+  <script>
+    // Smooth scroll
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute("href"));
+        target.scrollIntoView({ behavior: "smooth" });
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    function setTheme(mode) {
+      document.body.classList.toggle("light-mode", mode === "light");
+      localStorage.setItem("theme", mode);
+      themeToggle.textContent = mode === "light" ? "🌞" : "🌙";
+    }
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    setTheme(savedTheme);
+    themeToggle.addEventListener("click", () => {
+      const current = document.body.classList.contains("light-mode") ? "light" : "dark";
+      setTheme(current === "light" ? "dark" : "light");
+    });
+
+    // Typewriter effect
+    const typedText = document.querySelector(".typed-text");
+    const words = ["Web Developer", "Creative Coder", "UI Designer"];
+    let wordIndex = 0, charIndex = 0, isDeleting = false;
+    function typeEffect() {
+      const currentWord = words[wordIndex];
+      typedText.textContent = isDeleting
+        ? currentWord.substring(0, charIndex--)
+        : currentWord.substring(0, charIndex++);
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true; setTimeout(typeEffect, 1000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false; wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(typeEffect, 500);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+      }
+    }
+    typeEffect();
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll(".skill-card, .project-card");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("reveal");
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => observer.observe(el));
+
+    // Hamburger menu
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.getElementById("navLinks");
+    hamburger.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+    });
+
+    // Button email redirect
+    document.querySelector(".connect-btn").addEventListener("click", () => {
+      window.location.href = "mailto:ahmedzia@example.com";
+    });
+  </script>
+</body>
+</html>
